@@ -1,13 +1,25 @@
 package com.example.demo;
 
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.exception.ValidationException;
 import com.example.demo.model.GroceryList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 @RestController
 public class RestService {
+
+	// In-memory 'database'
+	private Map<String, GroceryList> database = new HashMap<>();
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestService.class, args);
@@ -15,30 +27,45 @@ public class RestService {
 
 	@GetMapping("/groceries/{name}")
 	public GroceryList getGroceries(@PathVariable String name) {
-		GroceryList groceryList = new GroceryList();
-		groceryList.setTitle(name);
-		return groceryList;
+		if (! database.containsKey(name)) {
+			throw new ResourceNotFoundException();
+		}
+
+		return database.get(name);
 	}
 
 	@PostMapping("/groceries/{name}")
 	public GroceryList createGroceryList(@PathVariable String name) {
+		if (database.containsKey(name)) {
+			throw new ValidationException("Grocery list already exists");
+		}
+
 		GroceryList groceryList = new GroceryList();
 		groceryList.setTitle(name);
+
+		database.put(name, groceryList);
+
 		return groceryList;
 	}
 
 	@PostMapping("/groceries/{name}/items/{item}")
 	public GroceryList addGroceryItem(@PathVariable String name, @PathVariable String item) {
-		GroceryList groceryList = new GroceryList();
-		groceryList.setTitle(name);
+		if (! database.containsKey(name)) {
+			throw new ResourceNotFoundException();
+		}
+
+		GroceryList groceryList = database.get(name);
 		groceryList.addItem(item);
 		return groceryList;
 	}
 
 	@DeleteMapping("/groceries/{name}/items/{item}")
 	public GroceryList removeGroceryItem(@PathVariable String name, @PathVariable String item) {
-		GroceryList groceryList = new GroceryList();
-		groceryList.setTitle(name);
+		if (! database.containsKey(name)) {
+			throw new ResourceNotFoundException();
+		}
+
+		GroceryList groceryList = database.get(name);
 		groceryList.removeItem(item);
 		return groceryList;
 	}
