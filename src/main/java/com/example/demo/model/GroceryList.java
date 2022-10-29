@@ -12,6 +12,10 @@ public class GroceryList {
         list.add(item);
     }
 
+    public void removeItem(String item) {
+        list.remove(item);
+    }
+
     public String getTitle() {
         return title;
     }
