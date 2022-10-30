@@ -7,11 +7,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
 @RestController
+@CrossOrigin
 public class RestService {
 
 	// In-memory 'database'
@@ -28,6 +31,11 @@ public class RestService {
 		}
 
 		return database.get(name);
+	}
+
+	@GetMapping("/groceries")
+	public List<GroceryList> getGroceryLists() {
+		return new ArrayList<>(database.values());
 	}
 
 	@PostMapping("/groceries/{name}")
