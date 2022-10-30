@@ -9,28 +9,27 @@ import axios from 'axios'
 </script>
 
 <template>
-    <div v-for="list in limitedLists" v-bind:key="list.id" >
+    <div class="container">
+        <div class="row list-item" v-for="list in limitedLists" v-bind:key="list.id" >
+            <div class="col-md-10">
+              <h3> <a :href="'listview.html?title=' + list.title">{{ list.title }}</a> </h3>
 
-        <WelcomeItem>
-          <template #icon>
-            <DocumentationIcon />
-          </template>
+              <p class="list-items">
+                  <template v-for="item in list.list">
+                            {{ item }} &nbsp;
+                  </template>
+              </p>
+          </div>
 
-          <a :href="'listview.html?title=' + list.title">{{ list.title }}</a>
-
-
-          <p class="list-items">
-          <template v-for="item in list.list">
-                    {{ item }} &nbsp;
-          </template>
-          </p>
-              <button @click="removeList(list.title)">X</button>
-        </WelcomeItem>
+            <div class="col-md-2" style="display: flex; align-items: center;">
+              <button class="btn btn-red" @click="removeList(list.title)">X</button>
+          </div>
+        </div>
     </div>
 
 <div id="addItem">
         <input v-model="listName">
-        <button @click="addList()">Add list</button>
+        <button class="btn-dark" @click="addList()"> Add list </button>
         </div>
 </template>
 

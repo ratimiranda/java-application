@@ -22,13 +22,8 @@ a,
 }
 
 @media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
 
   #app {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
@@ -42,4 +37,33 @@ a,
 
 .list-items {
     color: grey;
+}
+
+.shopping-lists {
+    max-height: 380px;
+    overflow-x: hidden;
+      scrollbar-color: var(--green) #e0e0e0;
+      scrollbar-width: thin;
+}
+
+.list-item {
+    background-color: rgba(250, 250, 250, 50%);
+    margin-bottom: 8px;
+}
+
+.btn-red {
+    background-color: var(--orange);
+    color: white;
+}
+
+.btn-green {
+    background-color: var(--green);
+    color: black;
+    border-color: black;
+}
+
+.btn-dark {
+    background-color: #333;
+    color: #ddd;
+    border: black 1px 1px;
 }

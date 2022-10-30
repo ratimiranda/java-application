@@ -34,6 +34,9 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+
+  --green: hsl(170, 100%, 39.8%);
+  --orange: #fe5f55;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -60,7 +63,6 @@
 }
 
 body {
-  min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;

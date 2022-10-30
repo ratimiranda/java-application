@@ -6,17 +6,22 @@ import axios from 'axios'
 </script>
 
 <template>
-<header>
-  <img alt="Vue logo" class="logo" src="./assets/grocery-logo.png" width="125" height="125" />
+     <hr/>
+<div class="container">
+     <div class="row">
+        <div class="col-lg-6" style="display: flex; padding-top: 64px;">
+          <img alt="Vue logo" class="logo" src="./assets/grocery-logo.png" width="125" height="125" />
 
-  <div class="wrapper">
-    <HelloWorld msg="Shopping lists" />
-  </div>
-</header>
+          <div class="wrapper">
+            <HelloWorld msg="Shopping lists" />
+          </div>
+        </div>
 
-<main>
-  <ShoppingLists />
-</main>
+        <div class="col-lg-6 shopping-lists">
+          <ShoppingLists />
+        </div>
+    </div>
+</div>
 </template>
 
 <style scoped>
