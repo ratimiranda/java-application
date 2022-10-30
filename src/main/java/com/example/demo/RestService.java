@@ -33,6 +33,15 @@ public class RestService {
 		return database.get(name);
 	}
 
+	@DeleteMapping("/groceries/{name}")
+	public GroceryList deleteList(@PathVariable String name) {
+		if (! database.containsKey(name)) {
+			throw new ResourceNotFoundException();
+		}
+
+		return database.remove(name);
+	}
+
 	@GetMapping("/groceries")
 	public List<GroceryList> getGroceryLists() {
 		return new ArrayList<>(database.values());

@@ -1,20 +1,22 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import ShoppingLists from './components/ShoppingLists.vue'
+
+import axios from 'axios'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/grocery-logo.png" width="125" height="125" />
+<header>
+  <img alt="Vue logo" class="logo" src="./assets/grocery-logo.png" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="Shopping lists" />
-    </div>
-  </header>
+  <div class="wrapper">
+    <HelloWorld msg="Shopping lists" />
+  </div>
+</header>
 
-  <main>
-    <ShoppingLists />
-  </main>
+<main>
+  <ShoppingLists />
+</main>
 </template>
 
 <style scoped>

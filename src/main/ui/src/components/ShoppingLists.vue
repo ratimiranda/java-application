@@ -16,7 +16,7 @@ import axios from 'axios'
             <DocumentationIcon />
           </template>
 
-          <template #heading>{{ list.title }}</template>
+          <a :href="'listview.html?title=' + list.title">{{ list.title }}</a>
 
 
           <p class="list-items">
@@ -24,8 +24,14 @@ import axios from 'axios'
                     {{ item }} &nbsp;
           </template>
           </p>
+              <button @click="removeList(list.title)">X</button>
         </WelcomeItem>
     </div>
+
+<div id="addItem">
+        <input v-model="listName">
+        <button @click="addList()">Add list</button>
+        </div>
 </template>
 
 <script>
@@ -33,6 +39,7 @@ export default {
   data() {
     return {
       lists: [],
+      listName: ''
     };
   },
 
@@ -49,7 +56,8 @@ export default {
             }
 
             if (list.list.length >= 4) {
-                items.push('...');
+                const text = '+' + (list.list.length - 3) + ' more';
+                items.push(text);
             }
 
             list.list = items;
@@ -60,18 +68,40 @@ export default {
   },
 
   methods: {
-    async getData() {
-      try {
-        const response = await axios.get(
-          "http://localhost:8080/groceries"
-        );
-        // JSON responses are automatically parsed.
-        this.lists = response.data;
-        console.log(response)
-      } catch (error) {
-        console.log(error);
-      }
-    },
+        async getData() {
+          try {
+            const response = await axios.get(
+              "http://localhost:8080/groceries"
+            );
+            this.lists = response.data;
+          } catch (error) {
+            console.log(error);
+          }
+        },
+        async removeList(list) {
+          try {
+            const response = await axios.delete(
+              "http://localhost:8080/groceries/" + list
+            );
+          } catch (error) {
+            console.log(error);
+          }
+
+          this.getData();
+        },
+        async addList() {
+          try {
+            const response = await axios.post(
+              "http://localhost:8080/groceries/" + this.listName
+            );
+          } catch (error) {
+            console.log(error);
+          }
+
+          this.listName = '';
+
+          this.getData();
+        },
   },
 
   created() {
